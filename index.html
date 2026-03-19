@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Vikas Jaiswal!</title>
+    <style>
+        :root {
+            --primary-pink: #ff007f;
+            --bg-black: #000000;
+            --text-pink: #ff80bf;
+            --neon-blue: #00f2ff;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: var(--bg-black);
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        #fwCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .container {
+            width: 95%;
+            max-width: 700px;
+            z-index: 2;
+            position: relative;
+        }
+
+        .step {
+            display: none;
+            animation: fadeIn 0.8s ease-in-out;
+        }
+
+        .step.active {
+            display: block;
+        }
+
+        h1 { 
+            font-size: 2.5rem; 
+            color: var(--primary-pink);
+            text-shadow: 0 0 15px rgba(255, 0, 127, 0.7); 
+        }
+
+        /* Cake & Buttons */
+        .cake-wrapper { position: relative; display: inline-block; cursor: pointer; margin: 20px 0; }
+        .cake-emoji { font-size: 100px; transition: 0.3s; filter: drop-shadow(0 0 10px var(--primary-pink)); }
+        .knife-emoji { position: absolute; top: -20px; right: -30px; font-size: 50px; animation: slice 2s infinite; }
+        
+        @keyframes slice {
+            0%, 100% { transform: rotate(-45deg) translate(0,0); }
+            50% { transform: rotate(-45deg) translate(-15px, 15px); }
+        }
+
+        .btn {
+            background-color: var(--primary-pink);
+            color: white;
+            border: none;
+            padding: 15px 35px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            text-transform: uppercase;
+            transition: 0.3s;
+            box-shadow: 0 0 15px rgba(255, 0, 127, 0.5);
+        }
+
+        .btn:hover { transform: scale(1.1); box-shadow: 0 0 30px var(--primary-pink); }
+
+        /* --- STYLISH HANGING GALLERY --- */
+        .hanging-gallery {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        /* The Arch Part */
+        .arch-row {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 10px;
+        }
+
+        .circle-frame {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            border: 3px solid #fff;
+            overflow: hidden;
+            box-shadow: 0 0 15px var(--primary-pink);
+            position: relative;
+        }
+
+        /* Offset the middle one higher to create an arch */
+        .arch-row .circle-frame:nth-child(2) {
+            transform: translateY(-20px);
+            width: 110px;
+            height: 110px;
+        }
+
+        /* The Hanging Grid Part */
+        .hanging-row {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            border-top: 4px solid #fff; /* The "bar" they hang from */
+            padding-top: 20px;
+            position: relative;
+        }
+
+        .hanging-frame {
+            width: 100px;
+            height: 120px;
+            background: #fff;
+            padding: 5px;
+            border-radius: 5px;
+            position: relative;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            transition: 0.3s;
+        }
+
+        .hanging-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 3px;
+        }
+
+        /* Hanging Wires */
+        .hanging-frame::before {
+            content: "";
+            position: absolute;
+            top: -24px;
+            left: 50%;
+            width: 2px;
+            height: 20px;
+            background: #fff;
+        }
+
+        /* Hearts */
+        .heart {
+            position: absolute;
+            color: red;
+            font-size: 20px;
+            top: -15px;
+            right: -10px;
+            z-index: 10;
+            text-shadow: 0 0 5px white;
+        }
+
+        .hanging-frame:hover { transform: translateY(10px) rotate(3deg); }
+
+        .balloon {
+            position: absolute;
+            bottom: -100px;
+            width: 35px;
+            height: 45px;
+            border-radius: 50%;
+            animation: floatUp 5s linear forwards;
+        }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes floatUp { to { bottom: 120vh; opacity: 0; } }
+    </style>
+</head>
+<body>
+
+    <canvas id="fwCanvas"></canvas>
+
+    <audio id="birthdayMusic" loop>
+        <source src="https://raw.githubusercontent.com/VKumar881/proposal/main/Vikash.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="container">
+        <div class="step active" id="step1">
+            <h1>Happy Birthday, Vikas Jaiswal!</h1>
+            <p>To my brother, my partner in crime, and my best friend.</p>
+            <button class="btn" onclick="nextStep(2)">Open Your Gift 🎁</button>
+        </div>
+
+        <div class="step" id="step2">
+            <h1>Make a Wish, Bhai!</h1>
+            <p>Tap the cake to cut it...</p>
+            <div class="cake-wrapper" onclick="cutCake()">
+                <div class="knife-emoji">🔪</div>
+                <div class="cake-emoji">🎂</div>
+            </div>
+        </div>
+
+        <div class="step" id="step3">
+            <h1>The Stage is Set...</h1>
+            <button class="btn" onclick="turnOnLights()">Turn On Lights 💡</button>
+        </div>
+
+        <div class="step" id="step4">
+            <h1>Let the Celebration Begin!</h1>
+            <button class="btn" onclick="flyBalloons()">Fly Balloons 🎈</button>
+        </div>
+
+        <div class="step" id="step5">
+            <h2 style="color: var(--primary-pink);">Happy Birthday Vikas Jaiswal!</h2>
+            
+            <div class="hanging-gallery">
+                <div class="arch-row">
+                    <div class="circle-frame"><img src="https://raw.githubusercontent.com/VKumar881/proposal/main/1.jpeg" width="100%"></div>
+                    <div class="circle-frame"><img src="https://raw.githubusercontent.com/VKumar881/proposal/main/2.jpeg" width="100%"></div>
+                    <div class="circle-frame"><img src="https://raw.githubusercontent.com/VKumar881/proposal/main/3.jpeg" width="100%"></div>
+                </div>
+
+                <div class="hanging-row">
+                    <div class="hanging-frame">
+                        <span class="heart">❤️</span>
+                        <img src="https://raw.githubusercontent.com/VKumar881/proposal/main/4.jpeg">
+                    </div>
+                    <div class="hanging-frame" style="margin-top: 20px;">
+                        <img src="https://raw.githubusercontent.com/VKumar881/proposal/main/5.jpeg">
+                    </div>
+                    <div class="hanging-frame">
+                        <span class="heart">❤️</span>
+                        <img src="https://raw.githubusercontent.com/VKumar881/proposal/main/6.jpeg">
+                    </div>
+                    <div class="hanging-frame" style="margin-top: 20px;">
+                        <img src="https://raw.githubusercontent.com/VKumar881/proposal/main/7.jpeg">
+                    </div>
+                    <div class="hanging-frame">
+                        <span class="heart">❤️</span>
+                        <img src="https://raw.githubusercontent.com/VKumar881/proposal/main/8.jpeg">
+                    </div>
+                </div>
+            </div>
+
+            <p style="margin-top: 30px; font-weight: bold; color: var(--primary-pink);">To many more adventures together! ✨</p>
+        </div>
+    </div>
+
+    <script>
+        const music = document.getElementById('birthdayMusic');
+        const canvas = document.getElementById('fwCanvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+        window.addEventListener('resize', resize);
+        resize();
+
+        class Particle {
+            constructor(x, y, color) {
+                this.x = x; this.y = y; this.color = color;
+                this.velocity = { x: (Math.random() - 0.5) * 8, y: (Math.random() - 0.5) * 8 };
+                this.alpha = 1;
+            }
+            draw() {
+                ctx.globalAlpha = this.alpha;
+                ctx.beginPath(); ctx.arc(this.x, this.y, 2, 0, Math.PI * 2);
+                ctx.fillStyle = this.color; ctx.fill();
+            }
+            update() {
+                this.x += this.velocity.x; this.y += this.velocity.y;
+                this.alpha -= 0.015;
+            }
+        }
+
+        function createFirework(x, y) {
+            const colors = ['#ff007f', '#ffffff', '#00f2ff'];
+            for (let i = 0; i < 40; i++) particles.push(new Particle(x, y, colors[Math.floor(Math.random()*3)]));
+        }
+
+        function animate() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.2)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            particles.forEach((p, i) => {
+                if (p.alpha > 0) { p.update(); p.draw(); }
+                else { particles.splice(i, 1); }
+            });
+            requestAnimationFrame(animate);
+        }
+
+        function nextStep(n) {
+            document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+            document.getElementById('step' + n).classList.add('active');
+        }
+
+        function cutCake() {
+            music.play();
+            nextStep(3);
+        }
+
+        function turnOnLights() {
+            animate();
+            setInterval(() => createFirework(Math.random()*canvas.width, Math.random()*canvas.height*0.7), 600);
+            nextStep(4);
+        }
+
+        function flyBalloons() {
+            for (let i = 0; i < 25; i++) {
+                setTimeout(() => {
+                    let b = document.createElement('div');
+                    b.className = 'balloon';
+                    b.style.left = Math.random() * 90 + 'vw';
+                    b.style.backgroundColor = i % 2 ? 'var(--primary-pink)' : '#fff';
+                    document.body.appendChild(b);
+                }, i * 200);
+            }
+            setTimeout(() => nextStep(5), 4000);
+        }
+    </script>
+</body>
+</html>
