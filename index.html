@@ -58,7 +58,6 @@
             text-shadow: 0 0 15px rgba(255, 0, 127, 0.7); 
         }
 
-        /* Buttons */
         .btn {
             background-color: var(--primary-pink);
             color: white;
@@ -75,7 +74,6 @@
 
         .btn:hover { transform: scale(1.1); box-shadow: 0 0 30px var(--primary-pink); }
 
-        /* Cake Section */
         .cake-wrapper { position: relative; display: inline-block; cursor: pointer; margin: 20px 0; }
         .cake-emoji { font-size: 100px; filter: drop-shadow(0 0 10px var(--primary-pink)); }
         .knife-emoji { position: absolute; top: -20px; right: -30px; font-size: 50px; animation: slice 2s infinite; }
@@ -85,7 +83,7 @@
             50% { transform: rotate(-45deg) translate(-20px, 20px); }
         }
 
-        /* --- THE HANGING FORMATION (Like your Image) --- */
+        /* --- THE HANGING FORMATION --- */
         .hanging-gallery {
             display: flex;
             flex-direction: column;
@@ -110,12 +108,18 @@
             box-shadow: 0 0 20px var(--primary-pink);
         }
 
-        /* Arch Effect */
         .arch-row .circle-frame:nth-child(2) {
             transform: translateY(-30px);
             width: 120px;
             height: 120px;
             border-color: var(--primary-pink);
+        }
+
+        .circle-frame img { width: 100%; height: 100%; object-fit: cover; }
+
+        /* ADJUSTING IMAGE 2 DOWNWARDS */
+        .adj-down {
+            object-position: center 20%; /* Change 20% to 30% or 40% to move it further down */
         }
 
         .hanging-row {
@@ -141,7 +145,6 @@
 
         .hanging-frame img { width: 100%; height: 100%; object-fit: cover; border-radius: 2px; }
 
-        /* The vertical black "strings" from your image */
         .hanging-frame::before {
             content: "";
             position: absolute;
@@ -162,7 +165,6 @@
             filter: drop-shadow(0 0 5px white);
         }
 
-        /* Animation for balloons */
         .balloon {
             position: absolute;
             bottom: -150px;
@@ -173,7 +175,7 @@
             animation: floatUp 8s ease-in forwards;
         }
 
-        .balloon::after { /* Balloon string */
+        .balloon::after {
             content: "";
             position: absolute;
             bottom: -20px;
@@ -221,7 +223,7 @@
         </div>
 
         <div class="step" id="step4">
-            <h1>>Let the colors fly!</h1>
+            <h1>Let the colors fly!</h1>
             <button class="btn" onclick="flyBalloons()">Release the Magic 🎈</button>
         </div>
 
@@ -229,9 +231,9 @@
             <h2 style="color: var(--primary-pink); margin-bottom: 0;">Our Best Memories</h2>
             <div class="hanging-gallery">
                 <div class="arch-row">
-                    <div class="circle-frame"><img src="https://raw.githubusercontent.com/VKumar881/wishes/main/1.jpeg" width="100%"></div>
-                    <div class="circle-frame"><img src="https://raw.githubusercontent.com/VKumar881/wishes/main/2.jpg" width="100%"></div>
-                    <div class="circle-frame"><img src="https://raw.githubusercontent.com/VKumar881/wishes/main/3.JPG" width="100%"></div>
+                    <div class="circle-frame"><img src="https://raw.githubusercontent.com/VKumar881/wishes/main/1.jpeg"></div>
+                    <div class="circle-frame"><img src="https://raw.githubusercontent.com/VKumar881/wishes/main/2.jpg" class="adj-down"></div>
+                    <div class="circle-frame"><img src="https://raw.githubusercontent.com/VKumar881/wishes/main/3.JPG"></div>
                 </div>
 
                 <div class="hanging-row">
